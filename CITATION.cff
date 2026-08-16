@@ -1,0 +1,55 @@
+
+---
+
+### CITATION.cff
+
+```yaml
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "Sigma-Profile Predictor"
+abstract: >-
+  A message-passing neural network (MPNN) model for predicting
+  molecular sigma-profiles from SMILES strings. The model supports
+  two prediction modes: MSE model and Composite model.
+type: software
+authors:
+  - family-names: "Zhang"
+    given-names: "Zhiqiang"
+    orcid: "https://orcid.org/0000-0003-3473-2720"
+    affiliation: "Department of Materials and Chemical Engineering, Zhengzhou University of Light Industry"
+  - family-names: "Xu"
+    given-names: "Liancai"
+    orcid: "https://orcid.org/0000-0003-1720-3851"
+    affiliation: "Department of Materials and Chemical Engineering, Zhengzhou University of Light Industry"
+version: "1.0.0"
+date-released: "2026-08-16"
+url: "https://github.com/hnshaohua/sigma-profile-predictor"
+license: "MIT"
+keywords:
+  - "sigma-profile"
+  - "COSMO-RS"
+  - "machine learning"
+  - "message-passing neural network"
+  - "SMILES"
+  - "molecular surface"
+references:
+  - type: article
+    authors:
+      - family-names: "Klamt"
+        given-names: "A."
+      - family-names: "Schüürmann"
+        given-names: "G."
+    title: "COSMO: A New Approach to Dielectric Screening in Solvents with Explicit Expressions for the Screening Energy and Its Gradient"
+    journal: "J. Chem. Soc., Perkin Trans. 2"
+    year: 1993
+    doi: "10.1039/P29930000799"
+  - type: article
+    authors:
+      - family-names: "Klamt"
+        given-names: "A."
+    title: "Conductor-Like Screening Model for Real Solvents: A New Approach to the Quantitative Calculation of Solvation Phenomena"
+    journal: "J. Phys. Chem."
+    year: 1995
+    volume: "99"
+    pages: "2224-2235"
+    doi: "10.1021/j100007a062"
