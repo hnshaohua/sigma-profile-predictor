@@ -12,32 +12,12 @@ from rdkit import Chem
 from rdkit.Chem import rdMolDescriptors, Descriptors
 
 # Import from src
-from src.featurizer import atom_feat, bond_feat, molecule_to_graph
+from src.featurizer import atom_feat, bond_feat, molecule_to_graph, calc_descriptors_for_area
 from src.model import MPNN_V2
+
 
 DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-def calc_area_desc(mol, features):
-    """Calculate 11 2D descriptors for area prediction."""
-    vals = []
-    for feat in features:
-        try:
-            if feat == 'labute_asa': v = rdMolDescriptors.CalcLabuteASA(mol)
-            elif feat == 'tpsa': v = rdMolDescriptors.CalcTPSA(mol)
-            elif feat == 'molwt': v = Descriptors.MolWt(mol)
-            elif feat == 'labute_volume': v = rdMolDescriptors.CalcLabuteVolume(mol)
-            elif feat == 'heavy_atom_count': v = mol.GetNumHeavyAtoms()
-            elif feat == 'total_atom_count': v = mol.GetNumAtoms()
-            elif feat == 'ring_count': v = rdMolDescriptors.CalcNumRings(mol)
-            elif feat == 'aromatic_ring_count': v = rdMolDescriptors.CalcNumAromaticRings(mol)
-            elif feat == 'rotatable_bonds': v = rdMolDescriptors.CalcNumRotatableBonds(mol)
-            elif feat == 'hbd': v = rdMolDescriptors.CalcNumHBD(mol)
-            elif feat == 'hba': v = rdMolDescriptors.CalcNumHBA(mol)
-            else: v = np.nan
-        except Exception:
-            v = np.nan
-        vals.append(v)
-    return np.array(vals).reshape(1, -1)
 
 def main():
     parser = argparse.ArgumentParser(description="Predict Sigma Profiles")

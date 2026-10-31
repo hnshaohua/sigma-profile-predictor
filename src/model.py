@@ -93,7 +93,6 @@ class MPNN_V2(nn.Module):
     def __init__(
         self,
         node_in_dim,
-        edge_dim,
         hidden_dim=256,
         num_layers=4,
         output_dim=51,

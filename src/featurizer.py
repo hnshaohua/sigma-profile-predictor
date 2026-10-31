@@ -145,42 +145,24 @@ class AtomFeaturizer:
 
 
 class BondFeaturizer:
-    """键特征编码器。
-
-    将 RDKit 键对象编码为 One-Hot 特征向量，编码的属性包括：
-        - bond_type: 键类型（single, double, triple, aromatic）
-        - is_conjugated: 是否共轭（True/False）
-        - is_in_ring: 是否在环中（True/False）
-
-    总特征维度为 4 + 1 + 1 = 6。
-
-    Attributes:
-        dim: 特征向量总维度（固定为 6）
-    """
+    """键特征编码器。（修改版）"""
 
     def __init__(self):
-        self.bond_type_set = {"single", "double", "triple", "aromatic"}
-        self.conj_set = {True, False}
-        self.ring_set = {True, False}
+        # 必须使用 list 保证顺序绝对稳定，与训练代码完全一致
+        self.bond_type_set = ["single", "double", "triple", "aromatic"]
+        self.conj_set = [True, False]
+        self.ring_set = [True, False]
         self.dim = len(self.bond_type_set) + len(self.conj_set) + len(self.ring_set)
 
     def encode(self, bond):
-        """将单个 RDKit 键编码为 One-Hot 特征向量。
-
-        Args:
-            bond: RDKit 键对象 (rdkit.Chem.rdchem.Bond)
-
-        Returns:
-            numpy.ndarray: One-Hot 特征向量，形状为 (dim,)，dtype 为 float32
-        """
         features = [0] * self.dim
         offset = 0
 
         # 键类型
         bt = bond.GetBondType().name.lower()
         if bt in self.bond_type_set:
-            sorted_types = sorted(list(self.bond_type_set))
-            features[offset + sorted_types.index(bt)] = 1.0
+            # 直接使用 list 的 index，千万不要加 sorted()
+            features[offset + self.bond_type_set.index(bt)] = 1.0
         offset += len(self.bond_type_set)
 
         # 共轭
